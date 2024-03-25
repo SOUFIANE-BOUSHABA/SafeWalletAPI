@@ -18,7 +18,7 @@ const Header = () => {
             <Link className="nav-link" to="/TransactionPages">transactions</Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/accounts">Contact</a>
+            <a className="nav-link" href="/accounts">Accounts</a>
           </li>
         </ul>
         <div className="form-inline my-2 my-lg-0">

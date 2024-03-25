@@ -10,6 +10,8 @@ import  Transaction from './dashboard/Transaction';
 import  TransactionPages from './pages/Transaction';
 import Recharge from './pages/Recharge';
 import Retrait from './pages/Retrait';
+import Accounts from './pages/Accounts';
+
 export default function App() {
   return (
     <>
@@ -21,6 +23,7 @@ export default function App() {
              <Route path="/recharge" element={<Recharge />} />
              <Route path="/Retirer" element={<Retrait />} />
              <Route path="/TransactionPages" element={<TransactionPages />} />
+             <Route path="/accounts" element={<Accounts />} />
 
           </Route>
           <Route path="/login" element={<Login />} />
