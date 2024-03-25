@@ -12,3 +12,16 @@ code {
     monospace;
 }
 
+.small-icon {
+  width: 30px;
+  height: 30px; 
+}
+.card-hover:hover {
+  background: linear-gradient(to bottom right, #003cff, #00bcd4); 
+  transition: background 0.3s ease; 
+  border: none;
+  color: white;
+}
+.card-hover:hover svg{
+  fill: white;
+}
