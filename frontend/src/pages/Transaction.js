@@ -36,6 +36,8 @@ export default function Transaction() {
                                         ))}
                                     </tbody>
                                 </table>
+                                
+
                             </div>
                         </div>
                     </div>
