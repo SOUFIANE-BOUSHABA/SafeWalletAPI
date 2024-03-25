@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Transaction() {
-    // Sample transaction data (replace with actual data)
+    
     const transactions = [
         { id: 1, amount: 1000, type: 'Recharge', date: '2021-09-01' },
         { id: 2, amount: 500, type: 'Retrait', date: '2021-09-02' },
