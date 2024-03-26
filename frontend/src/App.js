@@ -11,12 +11,14 @@ import  TransactionPages from './pages/Transaction';
 import Recharge from './pages/Recharge';
 import Retrait from './pages/Retrait';
 import Accounts from './pages/Accounts';
+import ProtectedRoute from './components/ProtectedRoute';                     
 
 export default function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
+        <Route element={<ProtectedRoute />}>
           <Route path="/" element={<Layout />} >
           <Route path="/" element={<Home />} />
 
@@ -25,6 +27,7 @@ export default function App() {
              <Route path="/TransactionPages" element={<TransactionPages />} />
              <Route path="/accounts" element={<Accounts />} />
 
+          </Route>
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
