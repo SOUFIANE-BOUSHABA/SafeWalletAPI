@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    name: '',
+    username: '',
     email: '',
     password: ''
   });
+
+  const navigate = useNavigate();
+
 
   const { name, email, password } = formData;
 
@@ -23,6 +27,8 @@ const Register = () => {
       });
 
       console.log(response.data);
+     
+      navigate('/login');
     } catch (error) {
       console.error('Registration failed:', error);
     }
