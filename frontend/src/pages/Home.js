@@ -1,20 +1,42 @@
 import React from 'react';
-import Header from '../components/Header';
 import link, { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const Home = () => {
+
+  const [userData, setUserData] = useState(null);
+  const [walletBalance, setWalletBalance] = useState(null);
   
-  const username = "soufiane boushaba";
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/api/showUser', {}, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`, 
+          },
+        });
+        setUserData(response.data.user);
+        setWalletBalance(response.data.wallet);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData(); 
+  }, []); 
 
   return (
     <>
       
       <div className="container align-items-center mt-3">
-        <h2>Bonjour, {username}</h2>
-        <div className="bg-primary text-white p-3 py-4 text-center rounded mb-4">
-          <h2 className="font-weight-bold">Total en Solde</h2>
-          <h3>$500.00</h3>
-        </div>
+      {userData && (  <h2>Bonjour, {userData.name}</h2> )}
+      {walletBalance && (
+          <div className="bg-primary text-white p-3 py-4 text-center rounded mb-4">
+            <h2 className="font-weight-bold">Total en Solde</h2>
+            <h3>${walletBalance}</h3>
+          </div>
+        )}
         <div className="row">
           <div className="col">
             <div className="card card-hover" style={{ width: '18rem' }}>
