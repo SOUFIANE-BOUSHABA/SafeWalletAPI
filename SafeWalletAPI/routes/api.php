@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WalletController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +27,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('deposit', [WalletController::class, 'deposit']);
     Route::post('withdrawal', [WalletController::class, 'withdrawal']);
     Route::post('transfer', [WalletController::class, 'transfer']);
+    Route::post('transactions', [TransactionController::class, 'getMyTransactions']);
 });
