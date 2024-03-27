@@ -24,4 +24,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', [UserController::class, 'user']);
     Route::post('logout', [UserController::class, 'logout']);
     Route::post('deposit', [WalletController::class, 'deposit']);
+    Route::post('withdrawal', [WalletController::class, 'withdrawal']);
+    Route::post('transfer', [WalletController::class, 'transfer']);
 });
