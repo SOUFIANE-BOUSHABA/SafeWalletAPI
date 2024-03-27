@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Wallet;
 
 class WalletController extends Controller
 {
@@ -102,7 +103,8 @@ public function transfer(Request $request)
     try {
         $user = auth()->user();
         $amount = $request->input('amount');
-        $recipient = User::find($request->input('recipient_id'));
+        $wallet_id = $request->input('recipient_id');
+        $wallet = Wallet::find($wallet_id);
 
         if ($amount <= 0) {
             return response()->json([
@@ -116,21 +118,21 @@ public function transfer(Request $request)
             ], 400);
         }
 
-        if (!$recipient) {
+        if (!$wallet) {
             return response()->json([
-                'message' => 'Recipient not found'
+                'message' => 'Wallet not found'
             ], 404);
         }
 
         $user->wallet->balance -= $amount;
         $user->wallet->save();
         
-        $recipient->wallet->balance += $amount;
-        $recipient->wallet->save();
+        $wallet->balance += $amount;
+        $wallet->save();
 
         $transaction = Transaction::create([
             'sender_wallet_id' => $user->wallet->id,
-            'recipient_wallet_id' => $recipient->wallet->id, 
+            'recipient_wallet_id' => $wallet->id, 
             'amount' => $amount,
             'type' => 'transfer'
         ]);
@@ -148,8 +150,7 @@ public function transfer(Request $request)
             'error' => $e->getMessage()
         ], 500);
     }
-
-
 }
+
 
 }

@@ -1,17 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function Accounts() {
-    // Sample data (replace with actual data)
-    const accounts = [
-        { id: 1, user: 'John Doe', balance: 1000 },
-        { id: 2, user: 'Jane Smith', balance: 2000 },
-        { id: 3, user: 'Alice Johnson', balance: 1500 },
-        // Add more accounts as needed
-    ];
+    const [accounts, setAccounts] = useState([]);
 
-    const handleSendMoney = (userId) => {
-        // Logic for sending money to the user with the specified userId
-        console.log('Sending money to user with ID:', userId);
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const response = await axios.post('http://127.0.0.1:8000/api/showUsers',{}, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
+                });
+                setAccounts(response.data.users);
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        };
+
+        fetchUsers();
+    }, []); 
+
+    const handleSendMoney = async (walletId) => {
+        try {
+            const amount = document.getElementById('amount').value;
+            axios.post('http://127.0.0.1:8000/api/transfer', {
+                amount,
+                recipient_id: walletId,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+        }catch (error) {
+            console.error('Error sending money:', error);
+        }   
+
     };
 
     return (
@@ -22,9 +46,10 @@ export default function Accounts() {
                     <div className="col-md-4 mb-3" key={account.id}>
                         <div className="card">
                             <div className="card-body">
-                                <h5 className="card-title">{account.user}</h5>
-                                <p className="card-text">Balance: ${account.balance}</p>
-                                <button className="btn btn-primary" onClick={() => handleSendMoney(account.id)}>Send Money</button>
+                                <h5 className="card-title">{account.name}</h5> 
+                               <label>amount</label>
+                               <input type="number" className="form-control mb-2 mt-4" id="amount" />
+                                <button className="btn btn-primary" onClick={() => handleSendMoney(account.wallet.id)}>Send Money</button>
                             </div>
                         </div>
                     </div>

@@ -95,4 +95,12 @@ class UserController extends Controller
             'wallet' => $balance
         ]);
     }
+
+    public function showUsers(Request $request)
+    {
+        $users = User::with('wallet')->get();
+        return response()->json([
+            'users' => $users
+        ]);
+    }
 }
