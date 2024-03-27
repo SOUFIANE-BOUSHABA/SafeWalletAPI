@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Wallet;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,10 +24,14 @@ class UserController extends Controller
             'role_id' => 2,
         ]);
 
-     
-      
+        $compte = Wallet::create([
+            'user_id' => $user->id,
+            'balance' => 0,
+        ]);
 
-        return $user;
+        return response()->json([
+            'message' => 'User created successfully'
+        ], Response::HTTP_CREATED);
     }
 
     public function login(Request $request)

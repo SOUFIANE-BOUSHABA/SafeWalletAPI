@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
-const Home = () => {
+
+const ProtectedRoute = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,7 +26,11 @@ const Home = () => {
     checkUserAuthentication();
   }, [navigate]);
 
- 
+ return (
+    
+      <Outlet/>
+
+  );
 };
 
-export default Home;
+export default ProtectedRoute;

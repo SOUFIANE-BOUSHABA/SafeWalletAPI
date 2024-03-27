@@ -18,7 +18,7 @@ export default function App() {
     <>
       <BrowserRouter>
         <Routes>
-        <Route element={<ProtectedRoute />}>
+        <Route path='/' element={<ProtectedRoute />}>
           <Route path="/" element={<Layout />} >
           <Route path="/" element={<Home />} />
 
