@@ -84,4 +84,15 @@ class UserController extends Controller
         ], Response::HTTP_OK);
     }
 
+
+
+    public function dataForUser(Request $request)
+    {
+        $user = Auth::user();
+        $balance = $user->wallet->balance;
+        return response()->json([
+            'user' => $user,
+            'wallet' => $balance
+        ]);
+    }
 }
