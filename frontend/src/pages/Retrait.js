@@ -1,6 +1,29 @@
 
+import React from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 export default function Retrait() { 
 
+    const navigate = useNavigate();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const number = e.target.elements.number.value;
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/api/withdrawal', {
+                amount: number,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+            console.log(response.data.message);
+            navigate('/');
+        }
+        catch (error) {
+            console.error('Recharge failed:', error);
+        }
+    }
 
     return (
         <div className="container mt-4">
@@ -10,7 +33,7 @@ export default function Retrait() {
                         <div className="card-body">
                             <h2 className="card-title">Retrait</h2>
                             
-                            <form>
+                            <form onSubmit={handleSubmit}>
                                 
                                 <div className="mb-3">
                                     <label htmlFor="number" className="form-label">Montant</label>
