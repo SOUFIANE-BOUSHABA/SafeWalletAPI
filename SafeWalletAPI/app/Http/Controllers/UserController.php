@@ -8,11 +8,37 @@ use App\Models\Wallet;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
-
+/**
+ * @OA\Info(
+ *     title="SafeWallet API",
+ *     version="1.0.0",
+ *     description="API documentation for SafeWallet",
+ *     @OA\Contact(
+ *         email="admin@safewallet.com",
+ *         name="SafeWallet Team"
+ *     ),
+ *     @OA\License(
+ *         name="MIT License",
+ *         url="https://opensource.org/licenses/MIT"
+ *     )
+ * )
+ */
 
 class UserController extends Controller
 {
-    //
+    /**
+ * Register a new user.
+ *
+ * @OA\Post(
+ *     path="/api/register",
+ *     tags={"User"},
+ *     summary="Register a new user",
+ *     @OA\Response(
+ *         response=201,
+ *         description="User created successfully"
+ *     )
+ * )
+ */
 
     public function register(Request $request)
     {
@@ -96,6 +122,9 @@ class UserController extends Controller
         ]);
     }
 
+
+
+    
     public function showUsers(Request $request)
     {
         $users = User::with('wallet')->get();
